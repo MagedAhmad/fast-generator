@@ -1,0 +1,22 @@
+<?php
+/**
+ * @OA\Schema(
+ *     title="{{studlySingular}}Resource",
+ *     description="{{studlySingular}} resource",
+ *     @OA\Xml(
+ *         name="{{studlySingular}}Resource"
+ *     )
+ * )
+ */
+class {{studlySingular}}Resource
+{
+    /**
+     * @OA\Property(
+     *     title="Data",
+     *     description="Data wrapper"
+     * )
+     *
+     * @var \App\Virtual\Models\{{studlySingular}}
+     */
+    private $data;
+}
