@@ -35,7 +35,7 @@
             <th style="width: 30px;" class="text-center">
               <x-check-all></x-check-all>
             </th>
-            <th>@lang('{{lowercasePlural}}.attributes.name')</th>
+            {{indexItemsKeys}}
             <th>@lang('{{lowercasePlural}}.attributes.created_at')</th>
             <th style="width: 160px">...</th>
         </tr>
@@ -46,16 +46,8 @@
                 <td class="text-center">
                   <x-check-all-item :model="${{lowercaseSingular}}"></x-check-all-item>
                 </td>
-                <td>
-                    <a href="{{ route('dashboard.{{lowercasePlural}}.show', ${{lowercaseSingular}}) }}"
-                       class="text-decoration-none text-ellipsis">
-
-                        <img src="{{ ${{lowercaseSingular}}->getFirstMediaUrl() }}"
-                             alt="Image"
-                             class="img-circle img-size-32 mr-2" style="height: 32px;">
-                        {{ ${{lowercaseSingular}}->name }}
-                    </a>
-                </td>
+                
+                {{indexItemsValues}}
                 <td>{{ ${{lowercaseSingular}}->created_at->format('Y-m-d') }}</td>
 
                 <td style="width: 160px">

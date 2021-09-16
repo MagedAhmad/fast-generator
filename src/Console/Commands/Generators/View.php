@@ -11,6 +11,26 @@ class View extends SpeedGenerator
 {
     public static function generate(CrudMakeCommand $command)
     {
+        $data = self::getFields($command);
+
+        // form data
+        $formItems = self::getFormItems($command);
+        $formTranslationItems = self::getFormTranslationItems($command);
+        
+        $data['formItems'] = $formItems;
+        $data['formTranslationItems'] = $formTranslationItems;
+        // end form data
+
+        // index data
+        $table = Str::of($command->argument('name'))->snake()->plural()->lower();
+
+        $indexItemsKeys = self::getIndexItemKeys($command, $table);
+        $indexItemsValues = self::getIndexItemValues($command, $command->argument('name'));
+
+        $data['indexItemsKeys'] = $indexItemsKeys;
+        $data['indexItemsValues'] = $indexItemsValues;
+        // end index data
+
         $name = Str::of($command->argument('name'))->plural()->snake();
 
         $translatable = config('speed-generator.' . $command->argument('name') . '.translatable.active');
@@ -34,7 +54,7 @@ class View extends SpeedGenerator
             'create.blade.php',
             self::qualifyContent(
                 $stubPath.'/partials/actions/create.blade.stub',
-                $name
+                $name,
             )
         );
         static::put(
@@ -113,9 +133,10 @@ class View extends SpeedGenerator
         static::put(
             resource_path("views/dashboard/{$name}/partials"),
             'form.blade.php',
-            self::qualifyContent(
+            self::qualifyContentNew(
                 $stubPath.'/partials/form.blade.stub',
-                $name
+                $name,
+                $data
             )
         );
         // Resource
@@ -138,9 +159,10 @@ class View extends SpeedGenerator
         static::put(
             resource_path("views/dashboard/{$name}"),
             'index.blade.php',
-            self::qualifyContent(
+            self::qualifyContentNew(
                 $stubPath.'/index.blade.stub',
-                $name
+                $name,
+                $data
             )
         );
         static::put(

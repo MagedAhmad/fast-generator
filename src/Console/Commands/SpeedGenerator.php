@@ -108,6 +108,10 @@ class SpeedGenerator
                 '{{columns}}',
                 '{{faktories}}',
                 '{{resource}}',
+                '{{formItems}}',
+                '{{indexItemsKeys}}',
+                '{{indexItemsValues}}',
+
             ],
             [
                 $studlySingular = Str::of($name)->singular()->studly(),
@@ -125,6 +129,10 @@ class SpeedGenerator
                 $columns = isset($data['columns']) ? implode(', ', $data['columns']) : null ,
                 $faktories = isset($data['faktories']) ? $data['faktories'] : null ,
                 $resource = isset($data['resource']) ? $data['resource'] : null ,
+                $formItems = isset($data['formItems']) ? $data['formItems'] : null ,
+                $indexItemsKeys = isset($data['indexItemsKeys']) ? $data['indexItemsKeys'] : null ,
+                $indexItemsValues = isset($data['indexItemsValues']) ? $data['indexItemsValues'] : null ,
+
             ],
             file_get_contents($stub)
         );
@@ -194,4 +202,94 @@ class SpeedGenerator
         return $data;
     }
 
+    protected static function getFormItems($command){
+        
+        $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
+        $form = '';
+        foreach($fields as $field) {
+            if($field['type'] == 'string') {
+                $form = $form . ' {{BsForm::text("' . $field['name'] . '") }}' ;
+            }elseif($field['type'] == 'text' || $field['type'] == 'longText') {
+                $form = $form . '{{ BsForm::textarea("' . $field['name'] .'")->attribute("class", "form-control editor") }}';
+            }elseif($field['type'] == 'integer' || $field['type'] == 'float' || $field['type'] == 'tinyInteger') {
+                $form = $form . ' {{BsForm::number("' . $field['name'] . '") }}' ;
+            }elseif($field['type'] == 'date') {
+                $form = $form . ' {{BsForm::date("' . $field['name'] . '") }}' ;
+            }elseif($field['type'] == 'boolean') {
+                $form = $form . ' {{ BsForm::checkbox("'. $field['name'].'")->checked(false) }}' ;
+            }
+        }
+
+        return $form;
+    }  
+
+    protected static function getFormTranslationItems($command){
+        
+        $fields = config('speed-generator.' . $command->argument('name'))['translatable']['translatable_fields'];
+        $form = '';
+        foreach($fields as $field) {
+            if($field['type'] == 'string') {
+                $form = $form . ' {{BsForm::text("' . $field['name'] . '") }}' ;
+            }elseif($field['type'] == 'text' || $field['type'] == 'longText') {
+                $form = $form . '{{ BsForm::textarea("' . $field['name'] .'")->attribute("class", "form-control editor") }}';
+            }elseif($field['type'] == 'integer' || $field['type'] == 'float' || $field['type'] == 'tinyInteger') {
+                $form = $form . ' {{BsForm::number("' . $field['name'] . '") }}' ;
+            }elseif($field['type'] == 'date') {
+                $form = $form . ' {{BsForm::date("' . $field['name'] . '") }}' ;
+            }elseif($field['type'] == 'boolean') {
+                $form = $form . ' {{ BsForm::checkbox("'. $field['name'].'")->checked(false) }}' ;
+            }
+        }
+
+        return $form;
+    } 
+    
+    protected static function getIndexItemValues($command, $table){
+        
+        $fields = config('speed-generator.' . $command->argument('name'))['translatable']['translatable_fields'];
+        
+        $items = '';
+        foreach($fields as $field) {
+            $items = $items . '<td>' .
+                '{{' . $table .'->' . $field['name'] .  '}}' .
+            '</td>';
+        }
+
+        $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
+        
+        foreach($fields as $field) {
+            $items = $items . '<td>' .
+                '{{' . $table .'->' . $field['name'] .  '}}' .
+            '</td>
+            ';
+        }
+
+        return $items;
+    } 
+
+    protected static function getIndexItemKeys($command, $table){
+        
+        $fields = config('speed-generator.' . $command->argument('name'))['translatable']['translatable_fields'];
+        
+        $items = '';
+        foreach($fields as $field) {
+            $items = $items . '<th>
+                @lang("' . $table . '.attributes.'.$field['name'].'")
+            </th>';
+        }
+
+        $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
+        
+        foreach($fields as $field) {
+            $items = $items . '<th>
+                @lang("' . $table . '.attributes.'.$field['name'].'")
+            </th>';
+        }
+
+        return $items;
+    } 
+
+    
+
+    
 }

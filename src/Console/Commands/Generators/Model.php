@@ -11,7 +11,6 @@ class Model extends SpeedGenerator
     public static function generate(CrudMakeCommand $command)
     {
         $name = Str::of($command->argument('name'))->singular()->studly();
-        // $translatable = config('speed-generator.' . $command->argument('name') . '.translatable.active');
 
 
         // see if model has translation
