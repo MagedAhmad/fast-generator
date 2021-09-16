@@ -9,7 +9,7 @@ return [
      */
 
     
-    'vat' => [
+    'expirement' => [
         /**
          * Set arabic translation
          * 
@@ -23,14 +23,19 @@ return [
          */
         'translatable' => [
             'active' => true,
-            
             'translatable_fields' => [
                 [
-                    'name' => 'username',
+                    'name' => 'name',
                     'type' => 'string',
+                    /**
+                     * Any thing you want to add to the migration line you can here
+                     * 
+                     * ex: $table->string('age')->nullable()->default(0);
+                     * nullable = key, '' = value
+                     * default = key, 0 = value
+                     */
                     'options' => [
                         'nullable' => '',
-                        'default' => '0'
                     ],
                 ],
                 [
@@ -38,17 +43,15 @@ return [
                     'type' => 'text',
                     'options' => [
                         'nullable' => '',
-                        'default' => '0'
                     ],
                 ]
             ],
         ],
         'database_fields' => [
             [
-                'name' => 'username',
-                'type' => 'string',
+                'name' => 'age',
+                'type' => 'integer',
                 'options' => [
-                    'nullable' => '',
                     'default' => '0'
                 ],
             ],

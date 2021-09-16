@@ -57,21 +57,46 @@ class Modifier
         file_put_contents(resource_path('views/layouts/sidebar.blade.php'), $sidebarFile);
     }
 
+    /**
+     * TODO
+     *
+     * @param [type] $name
+     * @return void
+     */
     public function permission($name)
     {
-        $resource = Str::of($name)->plural()->snake();
+        $pattern = '\{\{--  The permissions of generated crud will set here: Don\'t remove this line  --\}\}';
+
+        $place = '{{-- The permissions of generated crud will set here: Don\'t remove this line --}}';
+
+        $resource = Str::of($name)->plural()->studly();
 
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        
+        $data = [
+            ['name' => $resource. ' create', 'type' => $resource, 'guard_name' => 'web'],
+            ['name' => $resource . ' update', 'type' => $resource, 'guard_name' => 'web'],
+            ['name' => $resource . ' list', 'type' => $resource, 'guard_name' => 'web'],
+            ['name' => $resource . ' show', 'type' => $resource, 'guard_name' => 'web'],
+            ['name' => $resource . ' delete', 'type' => $resource, 'guard_name' => 'web'],
+        ];
 
-        // create permissions
-        Permission::updateOrCreate(['name' => "manage.$resource"]);
+        $rolesAndPermissionsFile = file_get_contents(app_path('database/seeds/RolesAndPermissionsSeeder.php'));
 
-        $permissions = @json_decode(file_get_contents(storage_path('permissions.json'))) ?? [];
+        $sidebar = "@include('dashboard.$resource.partials.actions.sidebar')\n$place";
 
-        $permissions[] = "manage.$resource";
+        foreach ($data as $datum) {
+            // create permissions
+            Permission::firstOrCreate($datum);
+        }
 
-        file_put_contents(storage_path('permissions.json'), json_encode($permissions, JSON_PRETTY_PRINT));
+        // $pattern2 = '\{\{--  The tables of generated crud will set here: Don\'t remove this line  --\}\}';
+
+        // $place2 = '{{-- The tables of generated crud will set here: Don\'t remove this line --}}';
+
+        
+        
     }
 
 

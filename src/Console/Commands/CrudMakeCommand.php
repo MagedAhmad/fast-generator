@@ -64,9 +64,9 @@ class CrudMakeCommand extends Command
         Factory::generate($this); // done
         Seeder::generate($this); // done
         Policy::generate($this); // done
-        Controller::generate($this);
+        Controller::generate($this); // done
         Model::generate($this); // done
-        Request::generate($this);
+        Request::generate($this); 
         Filter::generate($this);
         Test::generate($this);
         VirtualResource::generate($this);
