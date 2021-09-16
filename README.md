@@ -23,6 +23,14 @@ php artisan vendor:publish --provider="MagedAhmad\SpeedGenerator\SpeedGeneratorS
 ## Usage
 
 Add your model&migration data in `config/speed-generator` then run
+```php
+php artisan crud:create cat
+```
+or if the model has media add `--media` flag
+
+```php
+php artisan crud:create cat --media
+```
 
 example 
 
@@ -48,12 +56,12 @@ example
     ]
 ```
 
-```php
-php artisan crud:create cat
-```
+
 
 then run 
 ```
+php artisan crud:create cat
+
 composer dump-autoload && php artisan migrate && php artisan db:seed --class=CatSeeder && php artisan l5-swagger:generate
 ```
 

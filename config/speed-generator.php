@@ -5,7 +5,7 @@ return [
      * 
      * 'string', 'text', 'longText', 'tinyText',
      * 'integer', 'tinyInteger', 'float', 'bigInteger', 'decimal', 'double',
-     * 'date', 'time'
+     * 'date', 'time', 'boolean', 'timestamp', 'timestamps'
      */
 
     

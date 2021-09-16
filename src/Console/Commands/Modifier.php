@@ -65,10 +65,6 @@ class Modifier
      */
     public function permission($name)
     {
-        $pattern = '\{\{--  The permissions of generated crud will set here: Don\'t remove this line  --\}\}';
-
-        $place = '{{-- The permissions of generated crud will set here: Don\'t remove this line --}}';
-
         $resource = Str::of($name)->plural()->studly();
 
         // Reset cached roles and permissions
@@ -82,21 +78,10 @@ class Modifier
             ['name' => $resource . ' delete', 'type' => $resource, 'guard_name' => 'web'],
         ];
 
-        $rolesAndPermissionsFile = file_get_contents(app_path('database/seeds/RolesAndPermissionsSeeder.php'));
-
-        $sidebar = "@include('dashboard.$resource.partials.actions.sidebar')\n$place";
-
         foreach ($data as $datum) {
             // create permissions
             Permission::firstOrCreate($datum);
         }
-
-        // $pattern2 = '\{\{--  The tables of generated crud will set here: Don\'t remove this line  --\}\}';
-
-        // $place2 = '{{-- The tables of generated crud will set here: Don\'t remove this line --}}';
-
-        
-        
     }
 
 

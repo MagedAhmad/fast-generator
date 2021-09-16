@@ -87,7 +87,7 @@ class CrudMakeCommand extends Command
 
         $seederName = Str::of($name)->singular()->studly().'Seeder';
 
-        $this->info('Api Crud for '.$name.' created successfully 🎉');
+        $this->info('Crud for '.$name.' created successfully 🎉');
         $this->warn('Please run "composer dump-autoload && php artisan migrate && php artisan db:seed --class='.$seederName.' && php artisan l5-swagger:generate"');
     }
 }

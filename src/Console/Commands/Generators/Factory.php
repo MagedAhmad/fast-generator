@@ -23,8 +23,12 @@ class Factory extends SpeedGenerator
                 $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->paragraph,';
             }elseif(in_array($field['type'], ['integer', 'tinyInteger', 'float', 'bigInteger', 'decimal', 'double'])) {
                 $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->randomDigit,';
-            }elseif(in_array($field['type'], ['date', 'time'])) {
-                $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->date,';
+            }elseif(in_array($field['type'], ['date'])) {
+                $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->date($format = "Y-m-d", $max = "now"),';
+            }elseif(in_array($field['type'], ['time'])) {
+                $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->time($format = "H:i:s", $max = "now"),';
+            }elseif($field['type'] == 'timestamp' || $field['type'] == 'timestamps') {
+                $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->dateTimeBetween(-1, now()),';
             }elseif($field['type'] == 'boolean') {
                 $faktories = $faktories . '"' . $field['name'] . '" => true,';
             }
