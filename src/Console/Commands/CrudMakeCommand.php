@@ -59,7 +59,7 @@ class CrudMakeCommand extends Command
         Lang::generate($this); // done
         Breadcrumb::generate($this); // done
         View::generate($this);
-        Resource::generate($this);
+        Resource::generate($this); // done
         Migration::generate($this); // done
         Factory::generate($this); // done
         Seeder::generate($this); // done

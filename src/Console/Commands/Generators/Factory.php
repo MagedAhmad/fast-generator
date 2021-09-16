@@ -10,11 +10,29 @@ class Factory extends SpeedGenerator
 {
     public static function generate(CrudMakeCommand $command)
     {
-        $data = config('speed-generator.' . $command->argument('name'))['database_fields'];
-
         $faktories = '';
-        
-        foreach($data as $field) {
+        $data = [];
+
+        // get database fields
+        $records = config('speed-generator.' . $command->argument('name'))['database_fields'];
+
+        foreach($records as $field) {
+            if($field['type'] == 'string') {
+                $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->word,';
+            }elseif(in_array($field['type'], ['text', 'longText', 'tinyText'])) {
+                $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->paragraph,';
+            }elseif(in_array($field['type'], ['integer', 'tinyInteger', 'float', 'bigInteger', 'decimal', 'double'])) {
+                $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->randomDigit,';
+            }elseif(in_array($field['type'], ['date', 'time'])) {
+                $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->date,';
+            }else {
+                $faktories = $faktories . '"' . $field['name'] . '" => 1,';
+            }
+        }
+
+        // get translation fields
+        $records = config('speed-generator.' . $command->argument('name'))['translatable']['translatable_fields'];
+        foreach($records as $field) {
             if($field['type'] == 'string') {
                 $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->word,';
             }elseif(in_array($field['type'], ['text', 'longText', 'tinyText'])) {
@@ -24,7 +42,6 @@ class Factory extends SpeedGenerator
             }elseif(in_array($field['type'], ['date', 'time'])) {
                 $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->date,';
             }
-            $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->word,';
         }
         
         $data['faktories'] = $faktories;

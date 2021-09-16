@@ -10,6 +10,21 @@ class Resource extends SpeedGenerator
 {
     public static function generate(CrudMakeCommand $command)
     {
+        // database fields
+        $records = config('speed-generator.' . $command->argument('name'))['database_fields'];
+        
+        $fields = '';
+        foreach($records as $field) {
+            $fields = $fields . '"' . $field['name'] . '" => $this->' . $field['name'] . ',';
+        }
+        // translation fields
+        $records = config('speed-generator.' . $command->argument('name'))['translatable']['translatable_fields'];
+        foreach($records as $field) {
+            $fields = $fields . '"' . $field['name'] . '" => $this->' . $field['name'] . ',';
+        }
+        
+        $data['resource'] = $fields;
+
         $name = Str::of($command->argument('name'))->singular()->studly();
 
         $namespace = Str::of($name)->plural()->studly();
@@ -21,9 +36,10 @@ class Resource extends SpeedGenerator
         static::put(
             app_path("Http/Resources"),
             $name.'Resource.php',
-            self::qualifyContent(
+            self::qualifyContentNew(
                 $stub,
-                $name
+                $name,
+                $data
             )
         );
     }

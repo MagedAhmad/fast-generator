@@ -17,13 +17,13 @@ class {{studlySingular}}Resource extends JsonResource
 
         if ($request->example_excel) {
             return [
-                'name' => $this->name,
+                {{resource}}
             ];
         }
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            {{resource}}
         ];
     }
 }

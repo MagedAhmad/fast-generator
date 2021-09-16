@@ -107,6 +107,7 @@ class SpeedGenerator
                 '{{migration_data}}',
                 '{{columns}}',
                 '{{faktories}}',
+                '{{resource}}',
             ],
             [
                 $studlySingular = Str::of($name)->singular()->studly(),
@@ -123,6 +124,7 @@ class SpeedGenerator
                 $migration_data = isset($data['migration_data']) ? $data['migration_data'] : null ,
                 $columns = isset($data['columns']) ? implode(', ', $data['columns']) : null ,
                 $faktories = isset($data['faktories']) ? $data['faktories'] : null ,
+                $resource = isset($data['resource']) ? $data['resource'] : null ,
             ],
             file_get_contents($stub)
         );
