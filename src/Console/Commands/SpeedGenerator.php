@@ -106,6 +106,7 @@ class SpeedGenerator
                 '{{translated_data}}',
                 '{{migration_data}}',
                 '{{columns}}',
+                '{{faktories}}',
             ],
             [
                 $studlySingular = Str::of($name)->singular()->studly(),
@@ -117,10 +118,11 @@ class SpeedGenerator
                 $uppercaseDisplayPlural = Str::of($name)->snake()->replace('_', ' ')->ucfirst()->plural()->lower(),
                 $uppercaseDisplaySingular = Str::of($name)->snake()->replace('_', ' ')->ucfirst()->singular()->lower(),
                 
-                $translated_columns = implode(', ', $data['translated_columns']) ,
-                $translated_data = $data['translated_data'] ,
-                $migration_data = $data['migration_data'] ,
-                $columns = implode(', ', $data['columns']) ,
+                $translated_columns = isset($data['translated_columns']) ? implode(', ', $data['translated_columns']) : null ,
+                $translated_data = isset($data['translated_data']) ? $data['translated_data'] : null ,
+                $migration_data = isset($data['migration_data']) ? $data['migration_data'] : null ,
+                $columns = isset($data['columns']) ? implode(', ', $data['columns']) : null ,
+                $faktories = isset($data['faktories']) ? $data['faktories'] : null ,
             ],
             file_get_contents($stub)
         );

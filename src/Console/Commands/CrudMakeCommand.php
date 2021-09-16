@@ -56,14 +56,14 @@ class CrudMakeCommand extends Command
      */
     public function handle()
     {
-        Lang::generate($this);
+        Lang::generate($this); // done
         Breadcrumb::generate($this); // done
         View::generate($this);
         Resource::generate($this);
         Migration::generate($this); // done
-        Factory::generate($this);
-        Seeder::generate($this);
-        Policy::generate($this);
+        Factory::generate($this); // done
+        Seeder::generate($this); // done
+        Policy::generate($this); // done
         Controller::generate($this);
         Model::generate($this); // done
         Request::generate($this);

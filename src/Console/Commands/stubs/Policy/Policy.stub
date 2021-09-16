@@ -19,7 +19,7 @@ class {{studlySingular}}Policy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin() || $user->hasPermissionTo('manage.{{lowercasePlural}}');
+        return $user->isAdmin() || $user->hasPermissionTo('{{studlyPlural}} list');
     }
 
     /**
@@ -31,7 +31,7 @@ class {{studlySingular}}Policy
      */
     public function view(User $user, {{studlySingular}} ${{lowercaseSingular}})
     {
-        return $user->isAdmin() || $user->hasPermissionTo('manage.{{lowercasePlural}}');
+        return $user->isAdmin() || $user->hasPermissionTo('{{studlyPlural}} show');
     }
 
     /**
@@ -42,7 +42,7 @@ class {{studlySingular}}Policy
      */
     public function create(User $user)
     {
-        return $user->isAdmin() || $user->hasPermissionTo('manage.{{lowercasePlural}}');
+        return $user->isAdmin() || $user->hasPermissionTo('{{studlyPlural}} create');
     }
 
     /**
@@ -54,7 +54,7 @@ class {{studlySingular}}Policy
      */
     public function update(User $user, {{studlySingular}} ${{lowercaseSingular}})
     {
-        return $user->isAdmin() || $user->hasPermissionTo('manage.{{lowercasePlural}}');
+        return $user->isAdmin() || $user->hasPermissionTo('{{studlyPlural}} update');
     }
 
     /**
@@ -66,7 +66,7 @@ class {{studlySingular}}Policy
      */
     public function delete(User $user, {{studlySingular}} ${{lowercaseSingular}})
     {
-        return $user->isAdmin() || $user->hasPermissionTo('manage.{{lowercasePlural}}');
+        return $user->isAdmin() || $user->hasPermissionTo('{{studlyPlural}} delete');
     }
 
      /**
@@ -77,7 +77,7 @@ class {{studlySingular}}Policy
      */
     public function viewTrash(User $user)
     {
-        return ($user->isAdmin() || $user->hasPermissionTo('manage.{{lowercasePlural}}')) && $this->hasSoftDeletes();
+        return ($user->isAdmin() || $user->hasPermissionTo('{{studlyPlural}} delete')) && $this->hasSoftDeletes();
     }
 
     /**
@@ -89,7 +89,7 @@ class {{studlySingular}}Policy
      */
     public function restore(User $user, {{lowercaseSingular}} ${{studlySingular}})
     {
-        return ($user->isAdmin() || $user->hasPermissionTo('manage.{{lowercasePlural}}')) && $this->trashed(${{studlySingular}});
+        return ($user->isAdmin() || $user->hasPermissionTo('{{studlyPlural}} delete')) && $this->trashed(${{studlySingular}});
     }
 
     /**
@@ -101,7 +101,7 @@ class {{studlySingular}}Policy
      */
     public function forceDelete(User $user, {{lowercaseSingular}} ${{studlySingular}})
     {
-        return ($user->isAdmin()  || $user->hasPermissionTo('manage.{{lowercasePlural}}')) && $this->trashed(${{studlySingular}});
+        return ($user->isAdmin()  || $user->hasPermissionTo('{{studlyPlural}} delete')) && $this->trashed(${{studlySingular}});
     }
 
     /**
@@ -124,7 +124,7 @@ class {{studlySingular}}Policy
     {
         return in_array(
             SoftDeletes::class,
-            array_keys((new \ReflectionClass({{lowercaseSingular}}::class))->getTraits())
+            array_keys((new \ReflectionClass({{studlySingular}}::class))->getTraits())
         );
     }
 }
