@@ -25,8 +25,8 @@ class Factory extends SpeedGenerator
                 $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->randomDigit,';
             }elseif(in_array($field['type'], ['date', 'time'])) {
                 $faktories = $faktories . '"' . $field['name'] . '" => $this->faker->date,';
-            }else {
-                $faktories = $faktories . '"' . $field['name'] . '" => 1,';
+            }elseif($field['type'] == 'boolean') {
+                $faktories = $faktories . '"' . $field['name'] . '" => true,';
             }
         }
 

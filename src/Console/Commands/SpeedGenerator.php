@@ -111,7 +111,7 @@ class SpeedGenerator
                 '{{formItems}}',
                 '{{indexItemsKeys}}',
                 '{{indexItemsValues}}',
-
+                '{{showItems}}'
             ],
             [
                 $studlySingular = Str::of($name)->singular()->studly(),
@@ -132,7 +132,7 @@ class SpeedGenerator
                 $formItems = isset($data['formItems']) ? $data['formItems'] : null ,
                 $indexItemsKeys = isset($data['indexItemsKeys']) ? $data['indexItemsKeys'] : null ,
                 $indexItemsValues = isset($data['indexItemsValues']) ? $data['indexItemsValues'] : null ,
-
+                $showItems = isset($data['showItems']) ? $data['showItems'] : null ,
             ],
             file_get_contents($stub)
         );
@@ -250,17 +250,19 @@ class SpeedGenerator
         
         $items = '';
         foreach($fields as $field) {
-            $items = $items . '<td>' .
-                '{{' . $table .'->' . $field['name'] .  '}}' .
-            '</td>';
+            $items = $items . '
+                <td>' .
+                    '{{ $' . $table .'->' . $field['name'] .  ' }}' .
+                '</td>';
         }
 
         $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
         
         foreach($fields as $field) {
-            $items = $items . '<td>' .
-                '{{' . $table .'->' . $field['name'] .  '}}' .
-            '</td>
+            $items = $items . '
+                <td>' .
+                    '{{ $' . $table .'->' . $field['name'] .  ' }}' .
+                '</td>
             ';
         }
 
@@ -273,7 +275,8 @@ class SpeedGenerator
         
         $items = '';
         foreach($fields as $field) {
-            $items = $items . '<th>
+            $items = $items . '
+            <th>
                 @lang("' . $table . '.attributes.'.$field['name'].'")
             </th>';
         }
@@ -281,7 +284,8 @@ class SpeedGenerator
         $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
         
         foreach($fields as $field) {
-            $items = $items . '<th>
+            $items = $items . '
+            <th>
                 @lang("' . $table . '.attributes.'.$field['name'].'")
             </th>';
         }
@@ -289,7 +293,32 @@ class SpeedGenerator
         return $items;
     } 
 
-    
 
-    
+    protected static function getShowItems($command, $table, $name){
+        
+        $fields = config('speed-generator.' . $command->argument('name'))['translatable']['translatable_fields'];
+        
+        $items = '';
+        foreach($fields as $field) {
+            $items = $items . '
+                        <tr>
+                            <th width="200">@lang("' . $table . '.attributes.'.$field['name'].'")</th>
+                            <td>' . '{{ $' . $name .'->' . $field['name'] .  ' }}' .'</td>
+                        </tr>
+            ';
+        }
+
+        $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
+        
+        foreach($fields as $field) {
+            $items = $items . '
+                        <tr>
+                            <th width="200">@lang("' . $table . '.attributes.'.$field['name'].'")</th>
+                            <td>' . '{{ $' . $name .'->' . $field['name'] .  ' }}' .'</td>
+                        </tr>
+            ';
+        }
+
+        return $items;
+    } 
 }

@@ -31,6 +31,12 @@ class View extends SpeedGenerator
         $data['indexItemsValues'] = $indexItemsValues;
         // end index data
 
+        // show data 
+        $showItems = self::getShowItems($command, $table, $command->argument('name'));
+
+        $data['showItems'] = $showItems;
+        // end show data
+
         $name = Str::of($command->argument('name'))->plural()->snake();
 
         $translatable = config('speed-generator.' . $command->argument('name') . '.translatable.active');
@@ -177,9 +183,10 @@ class View extends SpeedGenerator
         static::put(
             resource_path("views/dashboard/{$name}"),
             'show.blade.php',
-            self::qualifyContent(
+            self::qualifyContentNew(
                 $stubPath.'/show.blade.stub',
-                $name
+                $name,
+                $data
             )
         );
     }
