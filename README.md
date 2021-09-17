@@ -94,6 +94,12 @@ If you discover any security related issues, please email maged.ahmedr@gmail.com
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-## Laravel Package Boilerplate
+## TODO
 
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
+- Add (foreign keys) functionalities
+
+- Handling files (pdf, docs, etc)
+
+- Customize sidebar icon
+
+- Automatically Add modedl counter to dashboard home page
