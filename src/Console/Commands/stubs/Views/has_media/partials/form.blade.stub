@@ -1,6 +1,6 @@
 @include('dashboard.errors')
 
-{{ BsForm::text('name') }}
+{{formItems}}
 
 @isset(${{lowercaseSingular}})
     {{ BsForm::image('image')->files(${{lowercaseSingular}}->getMediaResource()) }}

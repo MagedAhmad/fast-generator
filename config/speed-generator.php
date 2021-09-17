@@ -1,14 +1,19 @@
 <?php
+
+/**
+ * Speed generator
+ * 
+ * To help generate new cruds
+ */
 return [
+
     /**
      * Supported database fields
      * 
-     * 'string', 'text', 'longText', 'tinyText',
-     * 'integer', 'tinyInteger', 'float', 'bigInteger', 'decimal', 'double',
-     * 'date', 'time', 'boolean', 'timestamp', 'timestamps'
+     * 'string', 'text', 'longText', 'tinyText', 'integer', 'tinyInteger',
+     * 'float', 'bigInteger', 'decimal', 'double', 'date', 
+     * 'time', 'boolean', 'timestamp', 'timestamps'
      */
-
-    
     'expirement' => [
         /**
          * Set arabic translation
@@ -17,6 +22,20 @@ return [
          */
         'arabic' => ['التجربة', 'التجارب', 'تجربة', 'تجارب'],
         
+        'database_fields' => [
+            [
+                'name' => 'duration',
+                'type' => 'integer',
+                'lang' => [
+                    'ar' => 'المدة',
+                    'en' => 'Duration',
+                ],
+                'options' => [
+                    'default' => '0'
+                ],
+            ],
+        ],
+
         /**
          * Make active equal to true if you want to add translation fields
          * then add translatable fields
@@ -25,17 +44,14 @@ return [
             'active' => true,
             'translatable_fields' => [
                 [
-                    'name' => 'name',
+                    'name' => 'username',
                     'type' => 'string',
-                    /**
-                     * Any thing you want to add to the migration line you can here
-                     * 
-                     * ex: $table->string('age')->nullable()->default(0);
-                     * nullable = key, '' = value
-                     * default = key, 0 = value
-                     */
                     'options' => [
                         'nullable' => '',
+                    ],
+                    'lang' => [
+                        'ar' => 'اسم التجرب',
+                        'en' => 'Experiment name',
                     ],
                 ],
                 [
@@ -44,17 +60,12 @@ return [
                     'options' => [
                         'nullable' => '',
                     ],
+                    'lang' => [
+                        'ar' => 'الوصف',
+                        'en' => 'Description',
+                    ],
                 ]
             ],
         ],
-        'database_fields' => [
-            [
-                'name' => 'age',
-                'type' => 'integer',
-                'options' => [
-                    'default' => '0'
-                ],
-            ],
-        ]
     ]
 ];

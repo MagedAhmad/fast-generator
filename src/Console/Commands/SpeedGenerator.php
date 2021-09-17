@@ -101,7 +101,7 @@ class SpeedGenerator
                 '{{lowercaseDisplaySingular}}',
                 '{{uppercaseDisplayPlural}}',
                 '{{uppercaseDisplaySingular}}',
-
+                
                 '{{translated_columns}}',
                 '{{translated_data}}',
                 '{{migration_data}}',
@@ -111,7 +111,8 @@ class SpeedGenerator
                 '{{formItems}}',
                 '{{indexItemsKeys}}',
                 '{{indexItemsValues}}',
-                '{{showItems}}'
+                '{{showItems}}',
+                '{{formTranslationItems}}'
             ],
             [
                 $studlySingular = Str::of($name)->singular()->studly(),
@@ -133,6 +134,7 @@ class SpeedGenerator
                 $indexItemsKeys = isset($data['indexItemsKeys']) ? $data['indexItemsKeys'] : null ,
                 $indexItemsValues = isset($data['indexItemsValues']) ? $data['indexItemsValues'] : null ,
                 $showItems = isset($data['showItems']) ? $data['showItems'] : null ,
+                $formTranslationItems = isset($data['formTranslationItems']) ? $data['formTranslationItems'] : null ,
             ],
             file_get_contents($stub)
         );
@@ -321,4 +323,49 @@ class SpeedGenerator
 
         return $items;
     } 
+
+
+    protected static function getFieldsTranslationAr($command){
+        
+        $fields = config('speed-generator.' . $command->argument('name'))['translatable']['translatable_fields'];
+        
+        $ar = '';
+        foreach($fields as $field) {
+            $ar = $ar . '
+            "' . $field['name'] . '" => "' . $field['lang']['ar'] . '",';
+            $ar = $ar . '
+            "%' . $field['name'] . '%" => "' . $field['lang']['ar'] . '",';
+        }
+        $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
+        foreach($fields as $field) {
+            $ar = $ar . '
+            "' . $field['name'] . '" => "' . $field['lang']['ar'] . '",';
+            
+        }
+
+        return $ar;
+    } 
+
+    protected static function getFieldsTranslationEn($command){
+        
+        $fields = config('speed-generator.' . $command->argument('name'))['translatable']['translatable_fields'];
+        
+        $en = '';
+        foreach($fields as $field) {
+            
+            $en = $en . '
+            "' . $field['name'] . '" => "' . $field['lang']['en'] . '",';
+            $en = $en . '
+            "%' . $field['name'] . '%" => "' . $field['lang']['en'] . '",';
+        }
+        $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
+        foreach($fields as $field) {
+            
+            $en = $en . '
+            "' . $field['name'] . '" => "' . $field['lang']['en'] . '",';
+        }
+
+        return $en;
+    } 
+    
 }

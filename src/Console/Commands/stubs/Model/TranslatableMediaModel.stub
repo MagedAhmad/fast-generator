@@ -36,7 +36,7 @@ class {{studlySingular}} extends Model implements HasMedia, TranslatableContract
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [{{translated_columns}},{{columns}}];
 
     /**
      * The relations to eager load on every query.

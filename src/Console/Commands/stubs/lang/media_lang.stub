@@ -30,6 +30,7 @@ return [
     'attributes' => [
         'name' => '{{attributes.name}}',
         'image' => '{{attributes.image}}',
+        {{translations}}
         'created_at' => '{{attributes.created_at}}',
         'deleted_at' => '{{attributes.deleted_at}}',
     ],

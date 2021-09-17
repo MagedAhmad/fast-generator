@@ -28,5 +28,7 @@ class {{studlySingular}} extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        {{translated_columns}},{{columns}}
+    ];
 }

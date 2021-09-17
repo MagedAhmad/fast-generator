@@ -31,7 +31,7 @@ class {{studlySingular}} extends Model implements TranslatableContract
      *
      * @var array
      */
-    protected $guraded = [];
+    protected $fillable = [{{translated_columns}},{{columns}}];
 
     /**
      * The relations to eager load on every query.

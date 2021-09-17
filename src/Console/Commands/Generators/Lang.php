@@ -10,6 +10,13 @@ class Lang extends SpeedGenerator
 {
     public static function generate(CrudMakeCommand $command)
     {
+        $ar_translation = self::getFieldsTranslationAr($command);
+        $en_translation = self::getFieldsTranslationEn($command);
+        $data = [];
+        $data['ar_translation'] = $ar_translation;
+        $data['en_translation'] = $en_translation;
+
+
         $name = Str::of($command->argument('name'))->plural()->snake();
 
         self::ensureArabicWasRegistered($name);
@@ -34,7 +41,8 @@ class Lang extends SpeedGenerator
             self::qualifyContent(
                 $stub,
                 $name,
-                'en'
+                'en',
+                $data
             )
         );
 
@@ -44,16 +52,20 @@ class Lang extends SpeedGenerator
             self::qualifyContent(
                 $stub,
                 $name,
-                'ar'
+                'ar',
+                $data
             )
         );
     }
 
-    protected static function qualifyContent($stub, $name, $lang = null)
+    protected static function qualifyContent($stub, $name, $lang = null, $data = [])
     {
-        $replaceArray = static::englishResourceLang($name);
+        $replaceArray = static::englishResourceLang($name, $data['en_translation']);
+        $translations = $data['en_translation'];
+
         if ($lang == 'ar') {
-            $replaceArray = static::arabicResourceLang($name);
+            $translations = $data['ar_translation'];
+            $replaceArray = static::arabicResourceLang($name, $data['ar_translation']);
         }
 
         return str_replace(
@@ -82,6 +94,7 @@ class Lang extends SpeedGenerator
                 "{{messages.restored}}",
                 "{{attributes.name}}",
                 "{{attributes.%name%}}",
+                "{{translations}}",
                 "{{attributes.image}}",
                 "{{attributes.created_at}}",
                 "{{attributes.deleted_at}}",
@@ -103,7 +116,7 @@ class Lang extends SpeedGenerator
         );
     }
 
-    public static function arabicResourceLang($resource)
+    public static function arabicResourceLang($resource, $ar_translation)
     {
         $name = (string) Str::of($resource)->singular()->snake();
 
@@ -139,6 +152,7 @@ class Lang extends SpeedGenerator
             "تم استعادة $singular1 بنجاح.",
             "اسم $singular1",
             "اسم $singular1",
+            $ar_translation,
             "صورة $singular1",
             "اضافة في",
             "حذف في",
@@ -157,7 +171,7 @@ class Lang extends SpeedGenerator
         ];
     }
 
-    public static function englishResourceLang($resource)
+    public static function englishResourceLang($resource, $en_translation)
     {
         $studlySingular = Str::of($resource)->singular()->snake()->replace('_', ' ')->ucfirst();
         $studlyPlural = Str::of($resource)->plural()->snake()->replace('_', ' ')->ucfirst();
@@ -189,6 +203,7 @@ class Lang extends SpeedGenerator
             "The $lowercaseSingular has been restored successfully.",
             "$studlySingular name",
             "$studlySingular name",
+            $en_translation,
             "$studlySingular image",
             "Created At",
             "Deleted At",

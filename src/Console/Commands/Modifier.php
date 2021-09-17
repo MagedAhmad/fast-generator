@@ -82,6 +82,8 @@ class Modifier
             // create permissions
             Permission::firstOrCreate($datum);
         }
+
+        \App\Models\AppTables::firstOrCreate(['title' => $resource, 'is_active' => 1]);
     }
 
 

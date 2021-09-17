@@ -42,7 +42,7 @@ class {{studlySingular}} extends Model implements HasMedia
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [{{translated_columns}},{{columns}}];
 
     /**
      * Define the media collections.
