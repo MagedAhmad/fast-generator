@@ -46,7 +46,7 @@ return [
             'active' => true,
             'translatable_fields' => [
                 [
-                    'name' => 'username',
+                    'name' => 'username', 
                     'type' => 'string',
                     'options' => [
                         'nullable' => '',
@@ -56,17 +56,6 @@ return [
                         'en' => 'Experiment name',
                     ],
                 ],
-                [
-                    'name' => 'description',
-                    'type' => 'text',
-                    'options' => [
-                        'nullable' => '',
-                    ],
-                    'lang' => [
-                        'ar' => 'الوصف',
-                        'en' => 'Description',
-                    ],
-                ]
             ],
         ],
     ]

@@ -302,6 +302,17 @@ class SpeedGenerator
         
         $items = '';
         foreach($fields as $field) {
+            
+            if($field['type'] == 'text' || $field['type'] == 'longText') {
+                $items = $items . '
+                        <tr>
+                            <th width="200">@lang("' . $table . '.attributes.'.$field['name'].'")</th>
+                            <td>' . '{!! $' . $name .'->' . $field['name'] .  ' !!}' .'</td>
+                        </tr>
+                ';
+                continue;
+            }
+
             $items = $items . '
                         <tr>
                             <th width="200">@lang("' . $table . '.attributes.'.$field['name'].'")</th>
@@ -313,6 +324,15 @@ class SpeedGenerator
         $fields = config('speed-generator.' . $command->argument('name') . '.database_fields');
         
         foreach($fields as $field) {
+            if($field['type'] == 'text' || $field['type'] == 'longText') {
+                $items = $items . '
+                        <tr>
+                            <th width="200">@lang("' . $table . '.attributes.'.$field['name'].'")</th>
+                            <td>' . '{!! $' . $name .'->' . $field['name'] .  ' !!}' .'</td>
+                        </tr>
+                ';
+                continue;
+            }
             $items = $items . '
                         <tr>
                             <th width="200">@lang("' . $table . '.attributes.'.$field['name'].'")</th>

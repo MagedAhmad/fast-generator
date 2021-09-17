@@ -29,7 +29,7 @@ php artisan crud:create cat
 or if the model has media add `--has-media` flag
 
 ```php
-php artisan crud:create cat --media
+php artisan crud:create cat --has-media
 ```
 
 example 
