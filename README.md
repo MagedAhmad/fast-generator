@@ -1,8 +1,8 @@
-# Very short description of the package
+# Fast Generator
 
 [![Latest Stable Version](http://poser.pugx.org/magedahmad/speed-generator/v)](https://packagist.org/packages/magedahmad/speed-generator) [![Total Downloads](http://poser.pugx.org/magedahmad/speed-generator/downloads)](https://packagist.org/packages/magedahmad/speed-generator) [![Latest Unstable Version](http://poser.pugx.org/magedahmad/speed-generator/v/unstable)](https://packagist.org/packages/magedahmad/speed-generator) [![License](http://poser.pugx.org/magedahmad/speed-generator/license)](https://packagist.org/packages/magedahmad/speed-generator) [![PHP Version Require](http://poser.pugx.org/magedahmad/speed-generator/require/php)](https://packagist.org/packages/magedahmad/speed-generator)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This package is used to fasten your creating of new crud operations.
 
 ## Installation
 

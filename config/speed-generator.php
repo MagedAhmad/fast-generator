@@ -21,7 +21,9 @@ return [
          * Make sure to provide 4 words like the example
          */
         'arabic' => ['التجربة', 'التجارب', 'تجربة', 'تجارب'],
-        
+        /**
+         * Database fields
+         */
         'database_fields' => [
             [
                 'name' => 'duration',
