@@ -26,7 +26,7 @@ Add your model&migration data in `config/speed-generator` then run
 ```php
 php artisan crud:create cat
 ```
-or if the model has media add `--media` flag
+or if the model has media add `--has-media` flag
 
 ```php
 php artisan crud:create cat --media
