@@ -14,7 +14,7 @@ composer require magedahmad/speed-generator --dev
 
 ## Configuration
 
-You can install the package via composer:
+To publish configurations file run 
 
 ```bash
 php artisan vendor:publish --provider="MagedAhmad\SpeedGenerator\SpeedGeneratorServiceProvider"
@@ -67,11 +67,6 @@ composer dump-autoload && php artisan migrate && php artisan db:seed --class=Cat
 
 and that's it 🎉
 
-### Testing
-
-```bash
-composer test
-```
 
 ### Changelog
 
@@ -102,4 +97,10 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 - Customize sidebar icon
 
-- Automatically Add modedl counter to dashboard home page
+- Automatically Add model counter to dashboard home page
+
+- Request data
+
+- Work on filters
+
+- Change from file to UI
